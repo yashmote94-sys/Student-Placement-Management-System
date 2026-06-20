@@ -1,89 +1,178 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Student Placement Portal</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        body{
+            background: linear-gradient(135deg,#0f172a,#1e293b);
+            min-height:100vh;
+            color:white;
+        }
+
+        .hero{
+            text-align:center;
+            padding:40px;
+        }
+
+        .hero h1{
+            font-size:3rem;
+            font-weight:bold;
+        }
+
+        .card-box{
+            border-radius:20px;
+            padding:25px;
+            text-align:center;
+            color:white;
+            transition:0.3s;
+        }
+
+        .card-box:hover{
+            transform:translateY(-5px);
+        }
+
+        .students{
+            background:#2563eb;
+        }
+
+        .trainers{
+            background:#059669;
+        }
+
+        .admins{
+            background:#dc2626;
+        }
+
+        .placed{
+            background:#16a34a;
+        }
+
+        .internship{
+            background:#ea580c;
+        }
+
+        .ppo{
+            background:#7c3aed;
+        }
+
+        .cgpa{
+            background:#0891b2;
+        }
+
+        .package{
+            background:#f59e0b;
+        }
+
+    </style>
+
 </head>
 
-<body class="bg-dark text-white">
+<body>
 
-<div class="container mt-5">
+<div class="container">
 
-    <h1 class="text-center mb-4">
-        🎓 Student Placement Portal
-    </h1>
+    <div class="d-flex justify-content-between mt-3">
 
-    <div class="row">
+        <div>
 
-        <div class="col-md-4 mb-3">
-            <div class="card bg-primary text-white">
-                <div class="card-body text-center">
-                    <h5>Total Students</h5>
-                    <h2>{{ total_students }}</h2>
-                </div>
+            <span class="badge bg-primary fs-6">
+                {{ username }}
+            </span>
+
+            <span class="badge bg-success fs-6">
+                {{ role }}
+            </span>
+
+        </div>
+
+        <div>
+
+            <a href="/logout" class="btn btn-danger">
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="hero">
+
+        <h1>
+            🎓 Student Placement Portal
+        </h1>
+
+        <p>
+            Placement • Internship • PPO • Training Management System
+        </p>
+
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+            <div class="card-box students">
+                <h5>Total Students</h5>
+                <h1>{{ total_students }}</h1>
             </div>
         </div>
 
-        <div class="col-md-4 mb-3">
-            <div class="card bg-success text-white">
-                <div class="card-body text-center">
-                    <h5>Placed Students</h5>
-                    <h2>{{ placed_students }}</h2>
-                </div>
+        <div class="col-md-3">
+            <div class="card-box trainers">
+                <h5>Total Trainers</h5>
+                <h1>{{ total_trainers }}</h1>
             </div>
         </div>
 
-        <div class="col-md-4 mb-3">
-            <div class="card bg-warning text-dark">
-                <div class="card-body text-center">
-                    <h5>Internships</h5>
-                    <h2>{{ internship_count }}</h2>
-                </div>
+        {% if role == "Admin" %}
+        <div class="col-md-3">
+            <div class="card-box admins">
+                <h5>Total Admins</h5>
+                <h1>{{ total_admins }}</h1>
             </div>
         </div>
+        {% endif %}
 
-        <div class="col-md-4 mb-3">
-            <div class="card bg-info text-white">
-                <div class="card-body text-center">
-                    <h5>PPO Holders</h5>
-                    <h2>{{ ppo_count }}</h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-3">
-            <div class="card bg-secondary text-white">
-                <div class="card-body text-center">
-                    <h5>Average CGPA</h5>
-                    <h2>{{ avg_cgpa }}</h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-3">
-            <div class="card bg-danger text-white">
-                <div class="card-body text-center">
-                    <h5>Highest Package</h5>
-                    <h2>{{ highest_package }}</h2>
-                </div>
+        <div class="col-md-3">
+            <div class="card-box placed">
+                <h5>Placed Students</h5>
+                <h1>{{ placed_students }}</h1>
             </div>
         </div>
 
     </div>
 
-    <div class="mt-4">
+    <div class="row mt-4 g-4">
 
-        <h4>Placement Percentage</h4>
+        <div class="col-md-3">
+            <div class="card-box internship">
+                <h5>Internships</h5>
+                <h1>{{ internship_count }}</h1>
+            </div>
+        </div>
 
-        <div class="progress" style="height:30px;">
-            <div
-                class="progress-bar bg-success"
-                role="progressbar"
-                style="width: {{ placement_percentage }}%;">
+        <div class="col-md-3">
+            <div class="card-box ppo">
+                <h5>PPO Holders</h5>
+                <h1>{{ ppo_count }}</h1>
+            </div>
+        </div>
 
-                {{ placement_percentage }}%
+        <div class="col-md-3">
+            <div class="card-box cgpa">
+                <h5>Average CGPA</h5>
+                <h1>{{ avg_cgpa }}</h1>
+            </div>
+        </div>
 
+        <div class="col-md-3">
+            <div class="card-box package">
+                <h5>Highest Package</h5>
+                <h1>{{ highest_package }}</h1>
             </div>
         </div>
 
@@ -91,13 +180,34 @@
 
     <div class="text-center mt-5">
 
-        <a href="/students" class="btn btn-light btn-lg">
-            View Students
+        <a href="/students" class="btn btn-primary btn-lg">
+            Students
         </a>
 
-        <a href="/add-student" class="btn btn-success btn-lg">
-            Add Student
+        <a href="/trainers" class="btn btn-success btn-lg">
+            Trainers
         </a>
+
+        {% if role == "Admin" %}
+
+        <a href="/admins" class="btn btn-warning btn-lg">
+            Admins
+        </a>
+
+        <a href="/add-student" class="btn btn-info btn-lg">
+            Add Record
+        </a>
+
+        <a
+            href="/delete-all"
+            onclick="return confirm('Delete all records?')"
+            class="btn btn-danger btn-lg">
+
+            Delete All
+
+        </a>
+
+        {% endif %}
 
     </div>
 
